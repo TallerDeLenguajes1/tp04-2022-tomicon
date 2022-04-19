@@ -36,7 +36,6 @@ int main(){
     int confirmar= 0;
     for (int i = 0; i < cantEncargos; i++)
     {
-        realizadas[i]= (tarea *)malloc(sizeof(tarea));
         printf("Si ya se ha realizado la tarea numero %d, ingrese un 1, sino ingrese cualquier otro numero", encargos[i]->TareaID);
         scanf("%d",&confirmar);
         if (confirmar == 1)
@@ -45,8 +44,6 @@ int main(){
             realizadas= NULL;
             confirmar= 0;
         }
-        
     }
-    
     return 0;
 }
