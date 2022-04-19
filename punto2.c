@@ -7,6 +7,8 @@ char *Descripcion; //
 int Duracion; // entre 10 – 100
 } typedef tarea;
 
+void mostrarTareas(tarea* listaTareas);
+
 int main(){
     tarea **encargos;
     tarea **realizadas;
@@ -46,4 +48,10 @@ int main(){
         }
     }
     return 0;
+}
+
+void mostrarTareas(tarea* listaTareas) {
+    printf("El id de la tarea es: %d\n", listaTareas->TareaID);
+    printf("la descripcion de la tarea es: %d\n", listaTareas->Descripcion);
+    printf("La duracion de la tarea es: %d\n", listaTareas->Duracion);
 }
