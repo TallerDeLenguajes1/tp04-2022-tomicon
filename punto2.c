@@ -81,6 +81,14 @@ int main(){
     fflush(stdin);
     BusquedaPorPalabra(realizadas, cantEncargos, clave);
     BusquedaPorId(realizadas, cantEncargos, idBuscado);
+    for (int i = 0; i < cantEncargos; i++)
+    {
+        free(encargos[i]);
+        free(realizadas[i]);
+    }
+    free(encargos);
+    free(realizadas);
+    
     return 0;
 }
 
