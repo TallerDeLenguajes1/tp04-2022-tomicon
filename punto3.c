@@ -14,15 +14,12 @@ Nodo *Siguiente;
 }typedef Nodo;
 
 // Declaración de funciones
-Nodo* insertar(Nodo* head, Tarea T);
-Nodo* borrarPrimerNodo(Nodo* head);
-Nodo* borrarNodo(Nodo* head, int ID);
-void insertarNodo(Nodo** head, Nodo* nuevoNodo);
-void desapuntarNodo(Nodo** head, Nodo* N);
-void mostrarTotales(Nodo* head);
+Nodo* insertar(Nodo* cabecera, Tarea T);
+Nodo* borrarNodo(Nodo* cabecera, int ID);
+void mostrarTotales(Nodo* cabecera);
 void mostrarTarea(Tarea t);
-Nodo* busquedaPorId(Nodo* head, int ID);
-Nodo* busquedaPorPalabra(Nodo* head, char *palabra);
+Nodo* busquedaPorId(Nodo* cabecera, int ID);
+Nodo* busquedaPorPalabra(Nodo* cabecera, char *clave);
 
 int main(){
     Nodo * realizadas=NULL;
@@ -35,5 +32,44 @@ int main(){
     pendientes= (Tarea*)malloc(cantEncargos * sizeof(Tarea));
     realizadas= (Tarea*)malloc(cantEncargos * sizeof(Tarea));
     return 0;
+}
+
+Nodo* insertar(Nodo* cabecera, Tarea T){
+    Nodo* nuevoNodo;
+
+    nuevoNodo = (Nodo*) malloc(sizeof(struct Nodo));
+    nuevoNodo->T = T;
+    nuevoNodo->Siguiente = cabecera;
+    cabecera=nuevoNodo;
+    return cabecera;
+}
+
+Nodo* borrarNodo(Nodo* cabecera, int ID){
+    if (cabecera== NULL)
+    {
+        return cabecera;
+    }
+    Nodo* aux=cabecera;
+    if (cabecera->Siguiente==NULL)
+    {
+        if (cabecera->Siguiente->T.TareaID == ID)
+        {
+            free(cabecera->Siguiente);
+            cabecera= NULL;
+            return cabecera;
+        }
+    }
+    while (cabecera->Siguiente != NULL)
+    {
+        if (cabecera->Siguiente->T.TareaID == ID)
+        {
+            Nodo * elimina;
+            elimina= cabecera->Siguiente;
+            cabecera->Siguiente= cabecera->Siguiente->Siguiente;
+            free(elimina);
+        }
+        cabecera= cabecera->Siguiente;
+    }
+    return aux;
 }
 
