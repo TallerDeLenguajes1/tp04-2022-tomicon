@@ -25,14 +25,14 @@ int main(){
         encargos[i]->Descripcion= (char*)malloc(501);
         realizadas[i]= (tarea *)malloc(sizeof(tarea));  //reservo memoria para las tareas realizadas
         realizadas[i]->Descripcion= (char*)malloc(501);               
-        printf("Ingrese el id de la tarea");
+        printf("Ingrese el id de la tarea: ");
         scanf("%d",&(encargos[i]->TareaID));
         fflush(stdin);
-        printf("Agregue una breve descripcion de la tarea (tiene 500 caracteres)");
+        printf("Agregue una breve descripcion de la tarea (tiene 500 caracteres): ");
         gets(encargos[i]->Descripcion);
         do
         {
-            printf("Que duracion tendra la tarea? (recuerde que debe ingresar un valor entre 10 y 100)");
+            printf("Que duracion tendra la tarea? (recuerde que debe ingresar un valor entre 10 y 100): ");
             scanf("%d",&(encargos[i]->Duracion));
             fflush(stdin);
         } while (encargos[i]->Duracion > 100 || encargos[i]->Duracion < 10);
@@ -40,7 +40,7 @@ int main(){
     int confirmar= 0;
     for (int i = 0; i < cantEncargos; i++)    //for para confirmar si las tareas han sido realizadas
     {
-        printf("Si ya se ha realizado la tarea numero %d, ingrese un 1, sino ingrese cualquier otro numero", encargos[i]->TareaID);
+        printf("Si ya se ha realizado la tarea numero %d, ingrese un 1, sino ingrese cualquier otro numero: ", encargos[i]->TareaID);
         scanf("%d",&confirmar);
         fflush(stdin);
         if (confirmar == 1)
@@ -53,11 +53,28 @@ int main(){
             realizadas[i]= NULL;
         }
     }
+    for (int i = 0; i < cantEncargos; i++)  //for para mostrar tareas realizadas
+    {
+        if (realizadas[i] != NULL)
+        {
+            printf("Tarea realizada:\n");
+            mostrarTareas(realizadas[i]);
+        }
+    }
+    for (int i = 0; i < cantEncargos; i++)  //for para mostrar tareas pendientes
+    {
+        if (encargos[i] != NULL)
+        {
+            printf("Tarea pendiente:\n");
+            mostrarTareas(encargos[i]);
+        }
+    }
     return 0;
 }
 
 void mostrarTareas(tarea* listaTareas) {
     printf("El id de la tarea es: %d\n", listaTareas->TareaID);
-    printf("la descripcion de la tarea es: %d\n", listaTareas->Descripcion);
+    printf("la descripcion de la tarea es: ");
+    puts(listaTareas->Descripcion);
     printf("La duracion de la tarea es: %d\n", listaTareas->Duracion);
 }
