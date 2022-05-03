@@ -18,11 +18,13 @@ int main(){
     scanf("%d",&cantEncargos);
     fflush(stdin);
     encargos= (tarea**)malloc(cantEncargos * sizeof(tarea*));
-
+    realizadas= (tarea**)malloc(cantEncargos * sizeof(tarea*));
     for (int i = 0; i < cantEncargos; i++)
     {
-        encargos[i]= (tarea *)malloc(sizeof(tarea));
+        encargos[i]= (tarea *)malloc(sizeof(tarea));    //reservo memoria para las tareas pendientes
         encargos[i]->Descripcion= (char*)malloc(501);
+        realizadas[i]= (tarea *)malloc(sizeof(tarea));  //reservo memoria para las tareas realizadas
+        realizadas[i]->Descripcion= (char*)malloc(501);               
         printf("Ingrese el id de la tarea");
         scanf("%d",&(encargos[i]->TareaID));
         fflush(stdin);
@@ -36,15 +38,19 @@ int main(){
         } while (encargos[i]->Duracion > 100 || encargos[i]->Duracion < 10);
     }
     int confirmar= 0;
-    for (int i = 0; i < cantEncargos; i++)
+    for (int i = 0; i < cantEncargos; i++)    //for para confirmar si las tareas han sido realizadas
     {
         printf("Si ya se ha realizado la tarea numero %d, ingrese un 1, sino ingrese cualquier otro numero", encargos[i]->TareaID);
         scanf("%d",&confirmar);
+        fflush(stdin);
         if (confirmar == 1)
         {
             realizadas[i]= encargos[i];
-            realizadas= NULL;
+            encargos[i]= NULL;
             confirmar= 0;
+        } else
+        {
+            realizadas[i]= NULL;
         }
     }
     return 0;
