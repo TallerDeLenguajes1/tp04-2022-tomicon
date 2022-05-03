@@ -9,7 +9,8 @@ int Duracion; // entre 10 – 100
 } typedef tarea;
 
 void mostrarTareas(tarea* listaTareas);
-tarea * BuscarTarea(tarea ** listaTareas, int cantTareas, char * palabraClave);
+tarea * BusquedaPorPalabra(tarea ** listaTareas, int cantTareas, char * palabraClave);
+tarea * BusquedaPorId(tarea ** listaTareas, int cantTareas, int id);
 
 int main(){
     tarea **encargos;
@@ -71,6 +72,15 @@ int main(){
             mostrarTareas(encargos[i]);
         }
     }
+    char clave[500];
+    printf("ingrese la palabra clave: \n");
+    gets(clave);
+    int idBuscado;
+    printf("ingrese el id de la tarea que busca: ");
+    scanf("%d", &idBuscado);
+    fflush(stdin);
+    BusquedaPorPalabra(realizadas, cantEncargos, clave);
+    BusquedaPorId(realizadas, cantEncargos, idBuscado);
     return 0;
 }
 
@@ -81,12 +91,27 @@ void mostrarTareas(tarea* listaTareas) {
     printf("La duracion de la tarea es: %d\n", listaTareas->Duracion);
 }
 
-tarea * BuscarTarea(tarea ** listaTareas, int cantTareas, char * palabraClave){
+tarea * BusquedaPorPalabra(tarea ** listaTareas, int cantTareas, char * palabraClave){
     for (int i = 0; i < cantTareas; i++)
     {
         if (listaTareas[i] != NULL)
         {
             if (!strcmp(listaTareas[i]->Descripcion,palabraClave))
+            {
+                return listaTareas[i];
+            }
+        }
+    }
+    printf("No se ha encontrado la tarea ingresada\n");
+    return NULL;
+}
+
+tarea * BusquedaPorId(tarea ** listaTareas, int cantTareas, int id){
+    for (int i = 0; i < cantTareas; i++)
+    {
+        if (listaTareas[i] != NULL)
+        {
+            if (listaTareas[i]->TareaID == id)
             {
                 return listaTareas[i];
             }
