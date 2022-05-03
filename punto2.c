@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Tarea {
 int TareaID; //Numerado en ciclo iterativo
@@ -8,6 +9,7 @@ int Duracion; // entre 10 – 100
 } typedef tarea;
 
 void mostrarTareas(tarea* listaTareas);
+tarea * BuscarTarea(tarea ** listaTareas, int cantTareas, char * palabraClave);
 
 int main(){
     tarea **encargos;
@@ -77,4 +79,19 @@ void mostrarTareas(tarea* listaTareas) {
     printf("la descripcion de la tarea es: ");
     puts(listaTareas->Descripcion);
     printf("La duracion de la tarea es: %d\n", listaTareas->Duracion);
+}
+
+tarea * BuscarTarea(tarea ** listaTareas, int cantTareas, char * palabraClave){
+    for (int i = 0; i < cantTareas; i++)
+    {
+        if (listaTareas[i] != NULL)
+        {
+            if (!strcmp(listaTareas[i]->Descripcion,palabraClave))
+            {
+                return listaTareas[i];
+            }
+        }
+    }
+    printf("No se ha encontrado la tarea ingresada\n");
+    return NULL;
 }
